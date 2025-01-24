@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="sawyer">
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="darkgray">
+    <color rgba=".2 .2 .2 1"/>
+  </material>
+  <material name="darkred">
+    <color rgba=".5 .1 .1 1"/>
+  </material>
+  <material name="sawyer_red">
+    <color rgba=".5 .1 .1 1"/>
+  </material>
+  <material name="sawyer_gray">
+    <color rgba="0.75294 0.75294 0.75294 1"/>
+  </material>
+  <joint name="controller_box_fixed" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="base"/>
+    <child link="controller_box"/>
+  </joint>
+  <joint name="display_joint" type="fixed">
+    <origin xyz="0.03 0. 0.105" rpy="1.5707964 0. 1.5707964"/>
+    <parent link="head"/>
+    <child link="screen"/>
+  </joint>
+  <joint name="head_head_camera" type="fixed">
+    <origin xyz="0.0228027 0. 0.216572 " rpy="-1.5707964 -0.5585038 -3.1415927"/>
+    <parent link="head"/>
+    <child link="sawyer_head_camera"/>
+  </joint>
+  <joint name="head_pan" type="revolute">
+    <origin xyz="0. 0. 0.2965" rpy="0. 0. 0."/>
+    <parent link="right_l0"/>
+    <child link="head"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-5.0951997" upper="0.9064" effort="8." velocity="1.8"/>
+  </joint>
+  <joint name="pedestal_feet_fixed" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="base"/>
+    <child link="pedestal_feet"/>
+  </joint>
+  <joint name="pedestal_fixed" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="base"/>
+    <child link="pedestal"/>
+  </joint>
+  <joint name="right_arm_mount" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="base"/>
+    <child link="right_arm_base_link"/>
+  </joint>
+  <joint name="right_connector_plate_base_joint" type="fixed">
+    <origin xyz="0. 0. 0.0018" rpy="0. 0. 0."/>
+    <parent link="right_gripper_base"/>
+    <child link="right_connector_plate_base"/>
+  </joint>
+  <joint name="right_connector_plate_mount_joint" type="fixed">
+    <origin xyz="0. 0. 0.0176" rpy="0. 0. 0."/>
+    <parent link="right_connector_plate_base"/>
+    <child link="right_connector_plate_mount"/>
+  </joint>
+  <joint name="right_electric_gripper_base_joint" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="right_connector_plate_mount"/>
+    <child link="right_electric_gripper_base"/>
+  </joint>
+  <joint name="right_gripper_base_joint" type="fixed">
+    <origin xyz="0. 0. -0.005" rpy="0. 0. 0."/>
+    <parent link="sawyer_right_hand"/>
+    <child link="right_gripper_base"/>
+  </joint>
+  <joint name="right_gripper_l_finger_joint" type="prismatic">
+    <origin xyz="0.003 -0.0015 0.04552" rpy="0. 0. 0."/>
+    <parent link="right_electric_gripper_base"/>
+    <child link="right_gripper_l_finger"/>
+    <axis xyz="0. 1. 0."/>
+    <limit lower="0." upper="0.020833" effort="20." velocity="5."/>
+  </joint>
+  <joint name="right_gripper_l_finger_tip_joint" type="fixed">
+    <origin xyz="0. 0.01725 0.075 " rpy="0. 0. 0."/>
+    <parent link="right_gripper_l_finger"/>
+    <child link="right_gripper_l_finger_tip"/>
+  </joint>
+  <joint name="right_gripper_r_finger_joint" type="prismatic">
+    <origin xyz="0.003 0.0015 0.04552" rpy="0. 0. 0."/>
+    <parent link="right_electric_gripper_base"/>
+    <child link="right_gripper_r_finger"/>
+    <axis xyz="0. 1. 0."/>
+    <limit lower="-0.020833" upper="0." effort="0." velocity="5."/>
+  </joint>
+  <joint name="right_gripper_r_finger_tip_joint" type="fixed">
+    <origin xyz="0. -0.01725 0.075 " rpy="0. 0. 0."/>
+    <parent link="right_gripper_r_finger"/>
+    <child link="right_gripper_r_finger_tip"/>
+  </joint>
+  <joint name="right_gripper_tip_joint" type="fixed">
+    <origin xyz="0. 0. 0.14062" rpy="0. 0. 0."/>
+    <parent link="right_gripper_base"/>
+    <child link="right_gripper_tip"/>
+  </joint>
+  <joint name="right_j0" type="revolute">
+    <origin xyz="0. 0. 0.08" rpy="0. 0. 0."/>
+    <parent link="right_arm_base_link"/>
+    <child link="right_l0"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-3.0502998" upper="3.0502998" effort="80." velocity="1.74"/>
+  </joint>
+  <joint name="right_j1" type="revolute">
+    <origin xyz="0.081 0.05 0.237" rpy="-1.5707964 1.5707964 0. "/>
+    <parent link="right_l0"/>
+    <child link="right_l1"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-3.8094999" upper="2.2736" effort="80." velocity="1.3279999"/>
+  </joint>
+  <joint name="right_j1_2" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="right_l1"/>
+    <child link="right_l1_2"/>
+  </joint>
+  <joint name="right_j2" type="revolute">
+    <origin xyz="0. -0.14 0.1425" rpy="1.5707964 0. 0. "/>
+    <parent link="right_l1"/>
+    <child link="right_l2"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-3.0425998" upper="3.0425998" effort="40." velocity="1.957"/>
+  </joint>
+  <joint name="right_j2_2" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="right_l2"/>
+    <child link="right_l2_2"/>
+  </joint>
+  <joint name="right_j3" type="revolute">
+    <origin xyz="0. -0.042 0.26 " rpy="-1.5707964 0. 0. "/>
+    <parent link="right_l2"/>
+    <child link="right_l3"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-3.0438999" upper="3.0438999" effort="40." velocity="1.957"/>
+  </joint>
+  <joint name="right_j4" type="revolute">
+    <origin xyz="0. -0.125 -0.1265" rpy="1.5707964 0. 0. "/>
+    <parent link="right_l3"/>
+    <child link="right_l4"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-2.9760998" upper="2.9760998" effort="9." velocity="3.4849998"/>
+  </joint>
+  <joint name="right_j4_2" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="right_l4"/>
+    <child link="right_l4_2"/>
+  </joint>
+  <joint name="right_j5" type="revolute">
+    <origin xyz="0. 0.031 0.275" rpy="-1.5707964 0. 0. "/>
+    <parent link="right_l4"/>
+    <child link="right_l5"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-2.9760998" upper="2.9760998" effort="9." velocity="3.4849998"/>
+  </joint>
+  <joint name="right_j6" type="revolute">
+    <origin xyz="0. -0.11 0.1053" rpy="-1.5707963 -0.17453 -3.1415854"/>
+    <parent link="right_l5"/>
+    <child link="right_l6"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-4.7123996" upper="4.7123996" effort="9." velocity="4.5450003"/>
+  </joint>
+  <joint name="right_l0_right_torso_itb" type="fixed">
+    <origin xyz="-0.055 0. 0.22 " rpy="0. -1.5707963 0. "/>
+    <parent link="right_l0"/>
+    <child link="sawyer_right_torso_itb"/>
+  </joint>
+  <joint name="right_l4_right_arm_itb" type="fixed">
+    <origin xyz="-0.055 0. 0.075" rpy="0. -1.5707963 0. "/>
+    <parent link="right_l4"/>
+    <child link="sawyer_right_arm_itb"/>
+  </joint>
+  <joint name="right_l5_right_hand_camera" type="fixed">
+    <origin xyz="0.039552 -0.033 0.0695 " rpy="3.1415927 0. 3.1415927"/>
+    <parent link="right_l5"/>
+    <child link="sawyer_right_hand_camera"/>
+  </joint>
+  <joint name="right_l5_right_wrist" type="fixed">
+    <origin xyz="0. 0. 0.10541" rpy="1.5707964 0. 1.5707964"/>
+    <parent link="right_l5"/>
+    <child link="sawyer_right_wrist"/>
+  </joint>
+  <joint name="right_l6_right_hand" type="fixed">
+    <origin xyz="0. 0. 0.0245" rpy="0. 0. 1.570796"/>
+    <parent link="right_l6"/>
+    <child link="sawyer_right_hand"/>
+  </joint>
+  <joint name="root_joint" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="sawyer"/>
+    <child link="base"/>
+  </joint>
+  <joint name="torso_t0" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="base"/>
+    <child link="torso"/>
+  </joint>
+  <link name="base"/>
+  <link name="controller_box">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.325 0. -0.38 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.22 0.4 0.53"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.325 0. -0.38 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.22 0.4 0.53"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="head">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="1.5795"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/head_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.08" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.18"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="pedestal">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="60.8639793"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0.26 0.345 -0.91488" rpy="1.5707964 0. -1.5707964"/>
+      <geometry>
+        <mesh filename="meshes/pedestal_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="darkgray"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 0. -0.29" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.18" length="0.62"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="pedestal_feet">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <collision>
+      <origin xyz="-0.1225 0. -0.758 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.77 0.7 0.31"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_base_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="2.0687001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_arm_base_link_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.12" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.08" length="0.24"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_connector_plate_base">
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_connector_plate_base_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.0135" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.04" length="0.0302"/>
+      </geometry>
+      <material name="darkred">
+        <color rgba=".5 .1 .1 1"/>
+      </material>
+    </collision>
+  </link>
+  <link name="right_connector_plate_mount">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="right_electric_gripper_base">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000002"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_electric_gripper_base_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+            <material name="darkred">
+        <color rgba=".5 .1 .1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.004 0. 0.025" rpy="1.5707964 -0.0000001 3.1415927"/>
+      <geometry>
+        <cylinder radius="0.029" length="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_gripper_base">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.47"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="right_gripper_l_finger">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 3.1415925"/>
+      <geometry>
+        <mesh filename="meshes/right_gripper_l_finger_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0.01725 0.04 " rpy="0. 0. 3.1415925"/>
+      <geometry>
+        <box size="0.01 0.0135 0.075 "/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.005 -0.003 0.0083" rpy="0. 0. 3.1415925"/>
+      <geometry>
+        <box size="0.01 0.05 0.017"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0.01725 0.04 " rpy="0. 0. 3.1415925"/>
+      <geometry>
+        <box size="0.01 0.0135 0.075 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="-0.005 -0.003 0.0083" rpy="0. 0. 3.1415925"/>
+      <geometry>
+        <box size="0.01 0.05 0.017"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_gripper_l_finger_tip">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. -3.1415925"/>
+      <geometry>
+        <mesh filename="meshes/right_gripper_l_finger_tip_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. -0.0045 -0.015 " rpy="0. 0. -3.1415925"/>
+      <geometry>
+        <box size="0.016 0.007 0.037"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. -0.0045 -0.015 " rpy="0. 0. -3.1415925"/>
+      <geometry>
+        <box size="0.016 0.007 0.037"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_gripper_r_finger">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_gripper_r_finger_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. -0.01725 0.04 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.01 0.0135 0.075 "/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0.005 0.003 0.0083" rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.01 0.05 0.017"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. -0.01725 0.04 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.01 0.0135 0.075 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.005 0.003 0.0083" rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.01 0.05 0.017"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_gripper_r_finger_tip">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_gripper_r_finger_tip_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0.0045 -0.015 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.016 0.007 0.037"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0.0045 -0.015 " rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.016 0.007 0.037"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_gripper_tip">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000002"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="right_l0">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="5.3213"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l0_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0.08 0. 0.23" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l1">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="4.5050001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l1_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.1225" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l1_2">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <collision>
+      <origin xyz="0. 0. 0.035" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.07" length="0.14"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l2">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="1.745"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l2_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.08" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.06" length="0.34"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l2_2">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <collision>
+      <origin xyz="0. 0. 0.26" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.06"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l3">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="2.5097001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l3_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. -0.01 -0.12" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.06"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l4">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="1.1136"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l4_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.11" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.045" length="0.3"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l4_2">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <collision>
+      <origin xyz="0. 0.01 0.26" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.06"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l5">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="1.5625"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l5_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.1" rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.06"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_l6">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3292"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/right_l6_visuals.obj" scale="1. 1. 1."/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+    <collision>
+      <origin xyz="0. 0.015 -0.01 " rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.055" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="sawyer"/>
+  <link name="sawyer_head_camera">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="sawyer_right_arm_itb">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.0001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="sawyer_right_hand">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0.02" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.035" length="0.03"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0.02" rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.035" length="0.03"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="sawyer_right_hand_camera">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="sawyer_right_torso_itb">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.0001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="sawyer_right_wrist">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+  </link>
+  <link name="screen">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.0001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.24 0.14 0.002"/>
+      </geometry>
+      <material name="darkgray"/>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="torso">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.0001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="darkgray">
+        <color rgba=".2 .2 .2 1"/>
+      </material>
+    </visual>
+  </link>
+</robot>

@@ -202,3 +202,6 @@ nvidia_curobo*/
 
 *.csv
 docs/*
+
+## IsaacSim USD Preview
+.thumbs/

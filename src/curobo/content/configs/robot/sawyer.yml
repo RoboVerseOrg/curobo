@@ -1,0 +1,134 @@
+##
+## Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+##
+## NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+## property and proprietary rights in and to this material, related
+## documentation and any modifications thereto. Any use, reproduction,
+## disclosure or distribution of this material and related documentation
+## without an express license agreement from NVIDIA CORPORATION or
+## its affiliates is strictly prohibited.
+##
+
+robot_cfg:
+  kinematics:
+    usd_path: "FILL_THIS"
+    usd_robot_root: "/robot"
+    isaac_usd_path: ""
+    usd_flip_joints: {}
+    usd_flip_joint_limits: []
+
+    urdf_path: "robot/sawyer/sawyer.urdf"
+    asset_root_path: "right_gripper_base"
+
+    base_link: "base"
+    ee_link: "right_gripper_base"
+    link_names: null
+    lock_joints: null
+    extra_links: null
+
+
+    collision_link_names: null # List[str]
+    collision_spheres: null #
+    collision_sphere_buffer: 0.005 # float or Dict[str, float]
+    extra_collision_spheres: {}
+    self_collision_ignore: {} # Dict[str, List[str]]
+    self_collision_buffer: {} # Dict[str, float]
+
+    use_global_cumul: True
+    mesh_link_names: null # List[str]
+    external_asset_path: null # Use this to add path for externally located assets/robot folder.
+
+    cspace:
+      # The order of the joint names seems to be not important at all
+      joint_names: ['right_j0', 'right_j1', 'right_j2', 'right_j3', 'right_j4', 'right_j5', 'right_j6', 'right_gripper_l_finger_joint', 'right_gripper_r_finger_joint', 'head_pan']
+      retract_config: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      null_space_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      cspace_distance_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      max_jerk: 500.0
+      max_acceleration: 15.0
+
+    collision_link_names: ['head', 'right_l0', 'right_l1', 'right_l2', 'right_l3', 'right_l4', 'right_l5', 'right_l6']
+    collision_spheres:
+      right_l0:
+        - "center": [0.006, -0.01, 0.073]
+          "radius": 0.07717
+        - "center": [0.045, -0.016, 0.183]
+          "radius": 0.0732
+        - "center": [0.082, -0.005, 0.236]
+          "radius": 0.06605
+      right_l1:
+        - "center": [0.0, -0.007, 0.065]
+          "radius": 0.076
+        - "center": [0.002, -0.079, 0.138]
+          "radius": 0.06177
+        - "center": [0.006, 0.033, 0.146]
+          "radius": 0.04445
+      right_l2:
+        - "center": [-0.0, -0.0, 0.053]
+          "radius": 0.06585
+        - "center": [-0.004, 0.003, 0.126]
+          "radius": 0.05777
+        - "center": [0.002, -0.003, 0.23]
+          "radius": 0.05305
+        - "center": [-0.001, 0.004, 0.164]
+          "radius": 0.05238
+        - "center": [-0.001, -0.009, 0.275]
+          "radius": 0.04631
+      right_l3:
+        - "center": [-0.0, -0.004, -0.098]
+          "radius": 0.06618
+        - "center": [-0.001, -0.07, -0.125]
+          "radius": 0.0587
+        - "center": [-0.002, 0.002, -0.049]
+          "radius": 0.06351
+        - "center": [-0.0, 0.003, -0.117]
+          "radius": 0.06564
+      head:
+        - "center": [-0.009, 0.003, 0.105]
+          "radius": 0.11012
+      right_l4:
+        - "center": [0.0, -0.001, 0.088]
+          "radius": 0.05106
+        - "center": [-0.001, 0.001, 0.157]
+          "radius": 0.04903
+        - "center": [0.002, -0.001, 0.042]
+          "radius": 0.05038
+        - "center": [-0.005, -0.003, 0.231]
+          "radius": 0.04291
+        - "center": [-0.004, 0.004, 0.283]
+          "radius": 0.03611
+      right_l5:
+        - "center": [0.002, -0.002, 0.077]
+          "radius": 0.05421
+        - "center": [0.001, -0.04, 0.101]
+          "radius": 0.05421
+        - "center": [-0.001, 0.0, 0.042]
+          "radius": 0.05335
+      right_l6:
+        - "center": [-0.012, -0.002, -0.014]
+          "radius": 0.05553
+      # right_electric_gripper_base:
+      #   - "center": [0.002, 0.02, 0.009]
+      #     "radius": 0.03934
+      #   - "center": [0.003, -0.015, 0.009]
+      #     "radius": 0.03934
+
+    # self_collision_ignore: {
+    #   'head': ['right_l0', 'right_l1', 'right_l2'],
+    #   "right_l0": ['right_l1'],
+    #   "right_l1": ['right_l2'],
+    #   "right_l2": ['right_l3'],
+    #   "right_l3": ['right_l4'],
+    #   "right_l4": ['right_l5', 'right_l6', 'right_electric_gripper_base'],
+    #   "right_l5": ['right_l6', 'right_electric_gripper_base'],
+    #   "right_l6": ['right_electric_gripper_base'],
+    # }
+    self_collision_ignore:
+      head: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l0: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l1: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l2: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l3: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l4: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l5: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
+      right_l6: ["head", "right_l0", "right_l1", "right_l2", "right_l3", "right_l4", "right_l5", "right_l6"]
